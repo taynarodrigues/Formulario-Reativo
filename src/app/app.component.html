@@ -1,21 +1,65 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<form [formGroup]="formularioDeUsuario" (ngsubmit)="enviarDados()">
+  <div>
+    <label for="nome">Nome:</label>
+    <input type="text" formControlName="nome">
+    <div *ngIf="!nome.pristine && nome.errors">
+      <p *ngIf="nome.errors.required">Nome é obrigatório</p>
+      <p *ngIf="nome.errors.minlength">Nome deve ter no mínimo 3 caracteres.</p>
+      <p *ngIf="nome.errors.maxlength">Nome de ter no máximo 100 caractere</p>
+    </div>
+  </div>
 
-<router-outlet></router-outlet>
+  <div>
+    <label for="email">E-mail</label>
+    <input type="text" formControlName="e-mail">
+    <div *ngIf="!email.pristine && email.errors">
+      <p *ngIf="email.errors.required">E-mail é obrigatório</p>
+      <p *ngIf="email.errors.minlength">E-mail deve ter no mínimo 3 caracteres.</p>
+      <p *ngIf="email.errors.maxlength">Digite um e-mail válido</p>
+    </div>
+
+  </div>
+
+  <div>
+    <label for="cpf">CPF</label>
+    <input type="text" formControlName="cpf">
+    <div *ngIf="!cpf.pristine && cpf.errors">
+      <p *ngIf="cpf.errors.required">CPF é obrigatório</p>
+      <p *ngIf="cpf.errors.errors">Digite um CPF válido</p>
+    </div>
+  </div>
+
+    <div>
+      <label for="nascimento">Nascimento</label>
+      <input type="date" formControlName="nascimento">
+      <div *ngIf="!nascimento.pristine && nascimento.errors">
+        <p *ngIf="nascimento.errors.required">Data de nascimento é obrigatória de 18 anos para cadastrar-se</p>
+        <p *ngIf="nascimento.errors.menorDeIdade">Voce precisa ter mais de </p>
+      </div>
+
+    </div>
+
+    <div>
+      <label for="senha">Senha:</label>
+      <input type="password" formControlName="senha">
+      <div *ngIf="!senha.pristine && senha.errors">
+        <p *ngIf="senha.errors.required">Senha é obrigatório</p>
+        <p *ngIf="senha.errors.minlength">Senha deve ter no mínimo 6 caracteres.</p>
+        <p *ngIf="senha.errors.maxlength">Senha de ter no máximo 12 caractere</p>
+      </div>
+
+    </div>
+
+    <div>
+      <label for="confirmarSenha">Confirmar Senha:</label>
+      <input type="password" formControlName="confirmarSenha">
+      <div *ngIf="!confirmarSenha.pristine && confirmarSenha.errors">
+        <p *ngIf="confirmarSenha.errors.required">Confirme sua senha</p>
+        <p *ngIf="confirmarSenha.errors.senhasNaoCoicidem">As senhas nao coincidem.</p>
+      </div>
+    </div>
+  
+    <div>
+      <button [disabled]="!formularioDeUsuario.valid">Enviar dados</button>
+    </div>
+</form>
